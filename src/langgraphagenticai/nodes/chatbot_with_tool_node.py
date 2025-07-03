@@ -35,3 +35,14 @@ class ChatbotWithToolNode:
             return {"messages":[llm_with_tools.invoke(state["messages"])]}
         
         return chatbot_node
+    
+
+    def save_result(self, state):
+        frequency = self.state['frequency']
+        summary = self.state['summary']
+        filename = f"./AINews/{frequency}_summary.md"
+        with open(filename, 'w') as f:
+            f.write(f"# {frequency.capitalize()} AI News Summary\n\n")
+            f.write(summary)
+            self.state['filename'] = filename
+            return self.state
